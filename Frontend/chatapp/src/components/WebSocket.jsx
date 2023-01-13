@@ -14,7 +14,6 @@ import { useRef } from 'react';
 export default function WebSocket({ socket }) {
 	const [message, setMessage] = useState('');
 	const [messages, setMessages] = useState([]);
-	const [audioData, setAudioData] = useState();
 	let audio;
 
 	const { transcript, listening } = useSpeechRecognition();
@@ -148,6 +147,7 @@ export default function WebSocket({ socket }) {
 						Send
 					</button>
 					<FontAwesomeIcon
+          style={{cursor: 'pointer' }}
 						icon={listening ? faMicrophone : faMicrophoneSlash}
 						onClick={() => {
 							listening ? SpeechRecognition.stopListening() : SpeechRecognition.startListening();
