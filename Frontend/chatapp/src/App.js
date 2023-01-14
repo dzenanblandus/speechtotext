@@ -30,13 +30,11 @@ function App() {
       setSocketInstance(socket);
 
       socket.on("connect", (data) => {
-        console.log(data);
       });
 
       setLoading(false);
 
       socket.on("disconnect", (data) => {
-        console.log(data)
       });
 
       return function cleanup() {

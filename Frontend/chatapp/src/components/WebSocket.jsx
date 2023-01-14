@@ -14,8 +14,7 @@ import { useRef } from 'react';
 export default function WebSocket({ socket }) {
 	const [message, setMessage] = useState('');
 	const [messages, setMessages] = useState([]);
-	let audio;
-
+  let audio;
 	const { transcript, listening } = useSpeechRecognition();
 
 	const [play, setPlay] = useState(false);
@@ -53,6 +52,7 @@ export default function WebSocket({ socket }) {
 		scrollToBottom();
 	}, [messages]);
 
+
 	useEffect(() => {
 		socket.on('data', (data) => {
 			let message = { ...data, time: new Date() };
@@ -60,7 +60,6 @@ export default function WebSocket({ socket }) {
 		});
 		return () => {
 			socket.off('data', () => {
-				console.log('data event was removed');
 			});
 		};
 	}, [socket, messages]);
@@ -115,8 +114,9 @@ export default function WebSocket({ socket }) {
 													.then((response) => response.blob())
 													.then((data) => {
 														const objectURL = URL.createObjectURL(data);
-														audio = new Audio(objectURL);
+														audio=new Audio(objectURL);
 														audio.play();
+                            audio.addEventListener('ended', () => setPlay(false));
 													});
 											} else {
 												if (audio) {
